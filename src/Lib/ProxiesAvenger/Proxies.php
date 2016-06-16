@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: lenon
  * Date: 03/04/16
- * Time: 16:37
+ * Time: 16:37.
  */
 
 namespace Aszone\Component\SearchHacking\Lib\ProxiesAvenger;
-use Aszone\Component\SearchHacking\Lib\ProxiesAvenger;
 
 class Proxies
 {
@@ -17,7 +16,7 @@ class Proxies
     public function __construct()
     {
         $this->virginProxies = new ProxyVirgin();
-        $this->tor= new ProxyTor();
+        $this->tor = new ProxyTor();
         $this->proxiesSite = new ProxySiteList();
     }
 
@@ -41,9 +40,8 @@ class Proxies
         return $this->proxiesSite->getOnlyOneProxy();
     }
 
-    public function getBodyByVirginProxies($urlOfSearch,$urlProxie,$proxy)
+    public function getBodyByVirginProxies($urlOfSearch, $urlProxie, $proxy)
     {
-        return $this->virginProxies->getBodyByVirginProxies($urlOfSearch,$urlProxie,$proxy);
+        return $this->virginProxies->getBodyByVirginProxies($urlOfSearch, $urlProxie, $proxy);
     }
-
 }
