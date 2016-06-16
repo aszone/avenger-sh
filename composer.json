@@ -5,7 +5,7 @@
     "keywords": ["Hacking","google","search","dork","dorking","hacker","bing","dukedukego","yahoo"],
     "homepage": "http://www.lenonleite.com.br",
     "license": "MIT",
-    "version": "dev",
+    "version": "0.1",
     "authors": [
         {
             "name": "Lenon Leite",
@@ -36,7 +36,7 @@
         "symfony/dom-crawler":"~2.8",
         "symfony/css-selector":"2.8",
         "swiftmailer/swiftmailer": "^5.4",
-        "shark/simple_html_dom": "~1.5"
+        "shark/simple_html_dom": "dev-master"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "beta"
 }
