@@ -38,5 +38,5 @@
         "swiftmailer/swiftmailer": "^5.4",
         "shark/simple_html_dom": "dev-master"
     },
-    "minimum-stability": "beta"
+    "minimum-stability": "dev"
 }
