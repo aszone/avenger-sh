@@ -73,7 +73,7 @@ class Yandex
             echo 'Page '.$count."\n";
 
             if ($this->commandData['virginProxies']) {
-                $body = $this->Proxies->getBodyByVirginProxies($urlOfSearch, $this->listOfVirginProxies[$countProxyVirgin], $this->proxy);
+                $body = $this->utils->getBodyByVirginProxies($urlOfSearch, $this->listOfVirginProxies[$countProxyVirgin], $this->proxy);
 
                 //Check if next group of return data or not
                 $arrLinks = array();

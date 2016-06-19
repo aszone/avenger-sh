@@ -92,19 +92,11 @@ class DukeDukeGo
             echo 'Page '.$count."\n";
 
             if ($this->commandData['virginProxies']) {
-                $body = $this->Proxies->getBodyByVirginProxies($urlOfSearch, $this->listOfVirginProxies[$countProxyVirgin], $this->proxy);
+                $body = $this->utils->getBodyByVirginProxies($urlOfSearch, $this->listOfVirginProxies[$countProxyVirgin], $this->proxy);
 
                 $arrLinks = $this->getLinks($body);
 
-                //Check if exist captcha
-                //Check if next group of return data or not
-                /*arrLinks=array();*/
-                /*if(!$this->checkCaptcha($body) AND $body!="repeat"){
-                    $arrLinks=$this->utils->getLinks($body);
-                }else{
-                    $count--;
-                    echo "You has a problem with proxy, probaly you estress the engenier ...\n";
-                }*/
+
 
                 if ($this->checkReturnError($body)) {
                     echo "You has a problem with proxy, probaly you estress the engenier ...\n";

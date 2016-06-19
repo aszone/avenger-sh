@@ -40,8 +40,5 @@ class Proxies
         return $this->proxiesSite->getOnlyOneProxy();
     }
 
-    public function getBodyByVirginProxies($urlOfSearch, $urlProxie, $proxy)
-    {
-        return $this->virginProxies->getBodyByVirginProxies($urlOfSearch, $urlProxie, $proxy);
-    }
+
 }

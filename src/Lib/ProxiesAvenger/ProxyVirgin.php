@@ -28,44 +28,5 @@ class ProxyVirgin
         return true;
     }
 
-    public function getBodyByVirginProxies($urlOfSearch, $urlProxie, $proxy)
-    {
-        $header = new FakeHeaders();
 
-        echo 'Proxy : '.$urlProxie."\n";
-
-        $dataToPost = ['body' => ['url' => $urlOfSearch],
-        ];
-
-        $valid = true;
-        while ($valid == true) {
-            try {
-                $client = new Client([
-                    'defaults' => [
-                        'headers' => ['User-Agent' => $header->getUserAgent()],
-                        'proxy' => $proxy,
-                        'timeout' => 60,
-                    ],
-                ]);
-                $res = $client->post($urlProxie, $dataToPost);
-                $body = $res->getBody()->getContents();
-
-                //check if change new tor ip
-                $valid = false;
-            } catch (\Exception $e) {
-                echo 'ERROR : '.$e->getMessage()."\n";
-                if ($proxy == false) {
-                    echo "This ip of virgin proxy is blocked, we are using proxy at now...\n";
-                    //$this->pl= true;
-                }
-
-                return 'repeat';
-
-                sleep(2);
-            }
-        }
-       /* $crawler 	= new Crawler($body);
-        $arrLinks 	= $crawler->filter('a');*/
-        return $body;
-    }
 }

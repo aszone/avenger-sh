@@ -71,7 +71,7 @@ class Yahoo
             echo 'Page '.$count."\n";
 
             if ($this->commandData['virginProxies']) {
-                $body = $this->Proxies->getBodyByVirginProxies($urlOfSearch, $this->listOfVirginProxies[$countProxyVirgin], $this->proxy);
+                $body = $this->utils->getBodyByVirginProxies($urlOfSearch, $this->listOfVirginProxies[$countProxyVirgin], $this->proxy);
 
                 $arrLinks = $this->utils->getLinks($body);
 
