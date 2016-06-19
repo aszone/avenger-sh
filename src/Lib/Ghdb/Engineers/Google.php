@@ -3,9 +3,9 @@
 namespace Aszone\Component\SearchHacking\Lib\Ghdb\Engineers;
 
 use Aszone\Component\SearchHacking\Lib\Ghdb\Utils;
-use Aszone\Component\SearchHacking\Lib\FakeHeaders\FakeHeaders;
+use Aszone\FakeHeaders;
 use GuzzleHttp\Client;
-use Aszone\Component\SearchHacking\Lib\ProxiesAvenger\Proxies;
+use Aszone\ProxyAvenger;
 
 class Google
 {

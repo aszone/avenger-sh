@@ -5,7 +5,7 @@ namespace Aszone\Component\SearchHacking\Lib\WordPress;
 use GuzzleHttp\Client;
 use Respect\Validation\Validator as v;
 use Symfony\Component\DomCrawler\Crawler;
-use Aszone\Component\SearchHacking\Lib\FakeHeaders\FakeHeaders;
+use Aszone\FakeHeaders;
 
 //use Aszone\Site;
 

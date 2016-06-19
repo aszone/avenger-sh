@@ -2,7 +2,7 @@
 
 namespace Aszone\Component\SearchHacking\Lib;
 
-use Aszone\Component\SearchHacking\Lib\FakeHeaders\FakeHeaders;
+use Aszone\FakeHeaders;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
 

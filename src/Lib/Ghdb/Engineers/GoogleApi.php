@@ -4,8 +4,8 @@ namespace Aszone\Component\SearchHacking\Lib\Ghdb\Engineers;
 
 use Aszone\Component\SearchHacking\Lib\Ghdb\Utils;
 use GuzzleHttp\Client;
-use Aszone\Component\SearchHacking\Lib\ProxiesAvenger\Proxies;
-use Aszone\Component\SearchHacking\Lib\FakeHeaders\FakeHeaders;
+use Aszone\ProxyAvenger;
+use Aszone\FakeHeaders;
 
 class GoogleApi
 {

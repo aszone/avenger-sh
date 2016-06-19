@@ -9,7 +9,7 @@
 namespace Aszone\Component\SearchHacking\Lib\Ghdb;
 
 use Symfony\Component\DomCrawler\Crawler;
-use Aszone\Component\SearchHacking\Lib\FakeHeaders\FakeHeaders;
+use Aszone\FakeHeaders;
 use GuzzleHttp\Client;
 
 class Utils

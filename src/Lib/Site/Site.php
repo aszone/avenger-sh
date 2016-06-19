@@ -3,7 +3,7 @@
 namespace Aszone\Component\SearchHacking\Lib\Site;
 
 use GuzzleHttp\Client;
-use Aszone\Component\SearchHacking\Lib\FakeHeaders\FakeHeaders;
+use Aszone\FakeHeaders;
 use Respect\Validation\Validator as v;
 use Symfony\Component\DomCrawler\Crawler;
 
