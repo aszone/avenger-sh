@@ -35,7 +35,7 @@ class Site
         $dataDefault['dork'] = false;
         $dataDefault['pl'] = false;
         $dataDefault['tor'] = false;
-        $dataDefault['tor'] = false;
+        $dataDefault['torl'] = false;
         $dataDefault['virginProxies'] = false;
         $dataDefault['proxyOfSites'] = false;
 
@@ -107,26 +107,7 @@ class Site
         }
 
         return false;
-        /*
-        $isUrl   	= v::url()->notEmpty()->validate($this->target);
-        if($isUrl)
-        {
-            if(!$body)
-            {
-                $existInputPassword = $this->checkInputPassword($this->bodyTarget);
-                $existInputUsername = $this->checkInputUsername($this->bodyTarget);
-            }
-            else
-            {
-                $existInputPassword = $this->checkInputPassword($body);
-                $existInputUsername = $this->checkInputUsername($body);
-            }
 
-            if($existInputPassword AND $existInputUsername AND $existInputPassword['actionParentForm']==$existInputUsername['actionParentForm']){
-                return true;
-            }
-        }*/
-        return false;
     }
 
     public function formIsAdmin($actionForm)
@@ -153,14 +134,6 @@ class Site
         return false;
     }
 
-    /*public function setProxySiteList()
-    {
-        $proxySiteList=new ProxySiteList();
-        $proxy=$proxySiteList->getProxyOfSites();
-        var_dump($proxy);
-        exit();
-    }*/
-
     public function getNameFieldUsername($actionForm)
     {
         $html = new \simple_html_dom();
@@ -186,22 +159,7 @@ class Site
         }
 
         return false;
-        /*
-        $resultNameField=false;
-        $crawler 	= new Crawler($this->bodyTarget);
-        $inputs = $crawler->filter('form')->filter('input')->each(function (Crawler $node, $i) use (&$resultNameField,&$actionForm) {
-            if($node->attr('name') AND $this->sanitazeActionForm($node->parents()->filter('form')->attr('action'))== $actionForm)
-            {
-                $validNameField =  $this->verifyListNamesPassword($node->attr('type'));
-                $field[$node->attr('name')]=$node->attr('value');
-            }
 
-            if(isset($validNameField) AND !empty($validNameField))
-            {
-                $resultNameField=$field;
-            }
-        });
-        return $resultNameField;*/
     }
 
     public function getActionForm()
@@ -373,28 +331,7 @@ class Site
 
         return false;
 
-        /*$checkPassword = false;
-        $crawler 	= new Crawler($body);
 
-        $inputs = $crawler->filter('form')->filter('input')->each(function (Crawler $node, $i) use (&$checkPassword) {
-                if($node->attr('name'))
-                {
-                    $actionForm=$node->parents()->filter('form')->attr('action');
-                    $validPassword =  $this->verifyListNamesPassword($node->attr('name'));
-                }
-                if(!$node->attr('name') AND $node->attr('id'))
-                {
-                    $actionForm=$node->parents()->filter('form')->attr('action');
-                    $validPassword = $this->verifyListNamesPassword($node->attr('id'));
-                }
-                if(isset($validPassword) AND !empty($validPassword))
-                {
-                    $checkPassword['name']=$validPassword;
-                    $checkPassword['actionParentForm']=$actionForm;
-                }
-        });*/
-
-        //return $checkPassword;
     }
 
     private function verifyListNamesPassword($name)
@@ -415,27 +352,7 @@ class Site
         }
 
         return false;
-        /*$checkUsername=false;
-        $crawler 	= new Crawler($body);
-        $inputs = $crawler->filter('form')->filter('input')->each(function (Crawler $node, $i) use (&$checkUsername) {
-            if($node->attr('name'))
-            {
-                $actionForm=$node->parents()->filter('form')->attr('action');
-                $validUsername =  $this->verifyListNamesUsername($node->attr('name'));
-            }
-            if(!$node->attr('name') AND $node->attr('id'))
-            {
-                $actionForm=$node->parents()->filter('form')->attr('action');
-                $validUsername = $this->verifyListNamesUsername($node->attr('id'));
-            }
-            if(isset($validUsername) AND !empty($validUsername))
-            {
-                $checkUsername['name']=$validUsername;
-                $checkUsername['actionParentForm']=$actionForm;
-            }
-        });
-        return $checkUsername;
-        */
+
     }
 
     private function verifyListNamesUsername($name)

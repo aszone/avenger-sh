@@ -474,13 +474,9 @@ class WordPress
     public function getWordListInArray($wordlist = '')
     {
         if (empty($wordlist)) {
-            /*$zip = new \ZipArchive;
-            $zip->open('resource/wordlist.zip');
-            $zip->extractTo('resource/tmp/');
-            $zip->close();*/
+
             $wordlist = __DIR__.'/resource/litleWordListPt.txt';
             $arrWordlist = file($wordlist, FILE_IGNORE_NEW_LINES);
-            //unlink($wordlist);
             return $arrWordlist;
         }
 

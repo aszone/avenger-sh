@@ -40,10 +40,6 @@ class Ghdb
         //Check command of entered.
         $defaultEnterData = $this->defaultEnterData();
         $this->commandData = array_merge($defaultEnterData, $commandData);
-//        $this->dork = $this->commandData['dork'];
-//        $this->proxylist=$this->commandData['proxylist'];
-//        $this->pathProxy = __DIR__ . '/resource/proxys.json';
-//        $this->countProxylist=1;
 
         if (file_exists($this->pathProxy)) {
             unlink($this->pathProxy);
