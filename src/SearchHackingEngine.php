@@ -11,8 +11,8 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Helper\Table;
 /*use Aszone\Component\SearchHacking\Lib\WordPress\WordPress;*/
 use Aszone\Component\SearchHacking\Lib\Ghdb\Ghdb;
-use Aszone\Component\SearchHacking\Lib\Vunerabilities\SqlInjection;
-use Aszone\Component\SearchHacking\Lib\Vunerabilities\LocalFileDownload;
+use Aszone\Vulnerabilities\SqlInjection;
+use Aszone\Vulnerabilities\LocalFileDownload;
 use Aszone\Component\SearchHacking\Lib\Mailer;
 use Aszone\Component\SearchHacking\Lib\Site\Site;
 
