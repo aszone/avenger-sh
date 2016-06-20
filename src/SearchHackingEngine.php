@@ -1,6 +1,6 @@
 <?php
 
-namespace Aszone\Component\SearchHacking;
+namespace Aszone;
 
 use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Helper\Table;
 /*use Aszone\Component\SearchHacking\Lib\WordPress\WordPress;*/
-use Aszone\Component\SearchHacking\Lib\Ghdb\Ghdb;
+use Aszone\SearchHacking;
 use Aszone\Vulnerabilities\SqlInjection;
 use Aszone\Vulnerabilities\LocalFileDownload;
 use Aszone\Component\SearchHacking\Lib\Mailer;
@@ -124,36 +124,36 @@ class SearchHackingEngine extends Command
             'check' => $this->check,
         );
 
-        $ghdb = new Ghdb($commandData);
+        $sh = new SearchHacking($commandData);
 
         foreach ($this->eng as $enginer) {
             $output->writeln('<comment>*'.$enginer.'</comment>');
             switch ($enginer) {
                 case 'google':
-                    $result['google'] = $ghdb->runGoogle();
+                    $result['google'] = $sh->runGoogle();
                     break;
                 case 'googleapi':
-                    $result['googleapi'] = $ghdb->runGoogleApi();
+                    $result['googleapi'] = $sh->runGoogleApi();
                     break;
                 case 'bing':
-                    $result['bing'] = $ghdb->runBing();
+                    $result['bing'] = $sh->runBing();
                     break;
                 case 'yandex':
-                    $result['yandex'] = $ghdb->runYandex();
+                    $result['yandex'] = $sh->runYandex();
                     break;
                 case 'yahoo':
-                    $result['yahoo'] = $ghdb->runYahoo();
+                    $result['yahoo'] = $sh->runYahoo();
                     break;
                 case 'dukedukego':
-                    $result['dukedukego'] = $ghdb->runDukeDukeGo();
+                    $result['dukedukego'] = $sh->runDukeDukeGo();
                     break;
                 case 'all':
-                    $result['google'] = $ghdb->runGoogle();
-                    $result['googleapi'] = $ghdb->runGoogleApi();
-                    $result['bing'] = $ghdb->runBing();
-                    $result['yandex'] = $ghdb->runYandex();
-                    $result['yahoo'] = $ghdb->runYahoo();
-                    $result['dukedukego'] = $ghdb->runDukeDukeGo();
+                    $result['google'] = $sh->runGoogle();
+                    $result['googleapi'] = $sh->runGoogleApi();
+                    $result['bing'] = $sh->runBing();
+                    $result['yandex'] = $sh->runYandex();
+                    $result['yahoo'] = $sh->runYahoo();
+                    $result['dukedukego'] = $sh->runDukeDukeGo();
                     break;
                 default:
                     $output->writeln('<comment>Name Enginer not exist, help me and send email with site of searching not have you@example.com ... </comment>');

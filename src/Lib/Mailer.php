@@ -1,6 +1,6 @@
 <?php
 
-namespace Aszone\Component\SearchHacking\Lib;
+namespace Aszone\SearchHacking;
 
 class Mailer
 {
