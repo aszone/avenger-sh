@@ -19,11 +19,10 @@ class Utils
         $hrefs = array();
         if (!empty($links)) {
             foreach ($links as $keyLink => $valueLink) {
-                echo $valueLink->getAttribute('href')."\n";
                 $url = $this->clearLink($valueLink->getAttribute('href'));
                 $validResultOfBlackList = $this->checkBlacklist($url);
                 if (!$validResultOfBlackList and $url) {
-                    echo $url."\n";
+                    //echo $url."\n";
                     $hrefs[] = $url;
                 }
             }
@@ -105,6 +104,7 @@ class Utils
                 $check[] = strpos($url, 'flickr.com');
 
                 $tmp = array_filter($check);
+
                 if (empty($tmp)) {
                     return trim($url);
                 }

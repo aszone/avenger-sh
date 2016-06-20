@@ -14,7 +14,7 @@ use Aszone\Component\SearchHacking\Lib\Ghdb\Ghdb;
 use Aszone\Vulnerabilities\SqlInjection;
 use Aszone\Vulnerabilities\LocalFileDownload;
 use Aszone\Component\SearchHacking\Lib\Mailer;
-use Aszone\Component\SearchHacking\Lib\Site\Site;
+use Aszone\Hacking\DefaultSite;
 
 class SearchHackingEngine extends Command
 {
@@ -30,7 +30,7 @@ class SearchHackingEngine extends Command
 
     public function __construct()
     {
-        parent::__construct('search-hacking');
+        parent::__construct('sh');
     }
 
     protected function configure()
@@ -337,7 +337,7 @@ class SearchHackingEngine extends Command
         if (in_array('isAdmin', $this->check)) {
             $resultIsAdmin = array();
             $nameFileIsAdmin = $nameFile.'_isAdmin';
-            $site = new Site($commandData, $result);
+            $site = new DefaultSite($commandData, $result);
             $resultSite['site'] = $site->check();
             $this->saveTxt($resultSite, $nameFileIsAdmin);
             $this->printResult($resultSite['site'], $output, 'Result list of admin page:');

@@ -104,7 +104,9 @@ class Google
 
             echo "\n".$urlOfSearch."\n";
 
+
             $results = $this->utils->sanitazeLinks($arrLinks);
+
 
             if (((count($results) == 0 and $body != 'repeat') and !$this->checkCaptcha($body))
                 or (count($countProxyFail) == count($this->listOfVirginProxies))) {
