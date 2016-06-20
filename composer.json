@@ -31,10 +31,6 @@
     "require": {
         "php": ">=5.3.9",
         "knplabs/console-service-provider": "^1.0",
-        "respect/validation":"~1.0",
-        "guzzlehttp/guzzle":"~5.3",
-        "symfony/dom-crawler":"~2.8",
-        "symfony/css-selector":"2.8",
         "swiftmailer/swiftmailer": "^5.4",
         "aszone/simple_html_dom": "~1.5",
         "aszone/hacking": "dev-master",

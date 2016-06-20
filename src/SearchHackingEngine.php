@@ -9,11 +9,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Helper\Table;
-/*use Aszone\Component\SearchHacking\Lib\WordPress\WordPress;*/
 use Aszone\SearchHacking;
 use Aszone\Vulnerabilities\SqlInjection;
 use Aszone\Vulnerabilities\LocalFileDownload;
-use Aszone\Component\SearchHacking\Lib\Mailer;
+use Aszone\SearchHacking\Mailer;
 use Aszone\Hacking\DefaultSite;
 
 class SearchHackingEngine extends Command
