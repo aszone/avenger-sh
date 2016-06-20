@@ -1,6 +1,6 @@
 <?php
 
-namespace Aszone;
+namespace Aszone\Avenger;
 
 use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

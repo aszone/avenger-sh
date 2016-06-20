@@ -1,6 +1,6 @@
 <?php
 
-namespace Aszone\SearchHacking;
+namespace Aszone\Avenger;
 
 class Mailer
 {

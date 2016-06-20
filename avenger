@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\Console\Application;
-use Aszone\SearchHackingEngine;
+use Aszone\Avenger\SearchHackingEngine;
 
 require_once __DIR__ . '/vendor/autoload.php';
 

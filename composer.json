@@ -25,7 +25,7 @@
     
     "autoload": {
         "psr-4": { 
-            "Aszone\\AvengerSH\\": "src/"
+            "Aszone\\Avenger\\": "src/"
         }
     },
     "require": {
