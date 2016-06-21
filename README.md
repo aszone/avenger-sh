@@ -31,7 +31,8 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest beta version of Php Avenger SH:
 
 ```bash
-php composer.phar require aszone/avenger-sh
+php composer.phar require aszone/avenger-sh:dev-master
+cd avenger-sh
 ```
 ## Basic Usage
 
@@ -39,18 +40,24 @@ php composer.phar require aszone/avenger-sh
 
 ### Check Sql Injection
 ```bash
-php avenger sh --dork="site:com.cl inurl:php?id=" --check="sqli"
+php avenger sh --dork="site:com.ar inurl:php?id=" --check="sqli"
 ```
 
 ### Check Local File Download
 ```bash
-php avenger sh --dork="site:com.cl inurl:download.php?file=" --check="lfd"
+php avenger sh --dork="site:com.ar inurl:download.php?file=" --check="lfd"
 ```
 
 ### Check is Admin Page
 ```bash
-php avenger sh --dork="site:com.cl inurl:admin" --check="isAdmin"
+php avenger sh --dork="site:com.ar inurl:admin" --check="isAdmin"
 ```
+
+### Help for commands
+```bash
+php avenger sh 
+```
+
 ## Details
 
 #### Searchs Enginers
