@@ -46,11 +46,6 @@ php avenger sh --dork="site:com.ar ext:sql password"
 #### Result of trash search
 ![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem1.png)
 
-#### Result of Sql Injection
-![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem2.png)
-![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem3.png)
-
-
 
 ### Check Sql Injection
 ```bash
@@ -59,7 +54,6 @@ php avenger sh --dork="site:com.ar inurl:php?id=" --check="sqli"
 #### Result of Sql Injection
 ![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem2.png)
 ![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem3.png)
-
 
 
 ### Check Local File Download
