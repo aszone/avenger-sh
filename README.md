@@ -36,17 +36,39 @@ cd avenger-sh
 ```
 ## Basic Usage
 
-> Use command for init process, result will print in monitor and save in txt on folder results. 
+> Use command for init process, result will print in monitor and save in txt on folder results.
+
+### Get trash search
+
+```bash
+php avenger sh --dork="site:com.ar ext:sql password"
+```
+#### Result of trash search
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem1.png)
+
+#### Result of Sql Injection
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem2.png)
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem3.png)
+
+
 
 ### Check Sql Injection
 ```bash
 php avenger sh --dork="site:com.ar inurl:php?id=" --check="sqli"
 ```
+#### Result of Sql Injection
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem2.png)
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem3.png)
+
+
 
 ### Check Local File Download
 ```bash
 php avenger sh --dork="site:com.ar inurl:download.php?file=" --check="lfd"
 ```
+#### Result of Local File Download
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem7.png)
+
 
 ### Check is Admin Page
 ```bash
