@@ -7,7 +7,7 @@
 * PHP Avenger sh ( Search Enginer )
 
 ### Future Implementation
-
+r
 * PHP Avenger bt ( Brute - Force )
 * PHP Avenger sca ( State Code Analayse )
 * PHP Avenger pwp ( Plugin WordPress )
@@ -31,7 +31,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest beta version of Php Avenger SH:
 
 ```bash
-php composer.phar require aszone/avenger-sh:dev-master
+php composer.phar create-project aszone/avenger-sh:dev-master
 cd avenger-sh
 ```
 ## Basic Usage
