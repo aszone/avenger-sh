@@ -31,7 +31,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest beta version of Php Avenger SH:
 
 ```bash
-php composer.phar create-project aszone/avenger-sh:dev-master
+php composer.phar create-project aszone/avenger-sh
 cd avenger-sh
 ```
 ## Basic Usage
