@@ -341,7 +341,7 @@ class SearchHackingEngine extends Command
             $site = new DefaultSite($commandData, $result);
             $resultSite['site'] = $site->check();
             $this->saveTxt($resultSite, $nameFileIsAdmin);
-            $this->printResult($resultSite['site'], $output, 'Result list of admin page:');
+            $this->printResult($resultSite, $output, 'Result list of admin page:');
             $this->printResumeResult($output, 'Patch File of admin page:', $nameFileIsAdmin);
         }
 
@@ -351,7 +351,7 @@ class SearchHackingEngine extends Command
             $site = new CrossSiteScripting($commandData, $result);
             $resultSite['xss'] = $site->check();
             $this->saveTxt($resultSite, $nameFileXss);
-            $this->printResult($resultSite['xss'], $output, 'Result list of Cross site Scripting:');
+            $this->printResult($resultSite, $output, 'Result list of Cross site Scripting:');
             $this->printResumeResult($output, 'Patch File of Cross site Scripting:', $nameFileXss);
         }
 
@@ -360,7 +360,7 @@ class SearchHackingEngine extends Command
             $site = new LocalFileInclusion($commandData, $result);
             $resultSite['lfi'] = $site->check();
             $this->saveTxt($resultSite, $nameFileLfi);
-            $this->printResult($resultSite['lfi'], $output, 'Result list of Local File Inclusion:');
+            $this->printResult($resultSite, $output, 'Result list of Local File Inclusion:');
             $this->printResumeResult($output, 'Patch File of Local File Inclusion:', $nameFileLfi);
         }
     }
