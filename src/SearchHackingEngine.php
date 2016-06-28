@@ -2,6 +2,8 @@
 
 namespace Aszone\Avenger;
 
+use Aszone\Vulnerabilities\CrossSiteScripting;
+use Aszone\Vulnerabilities\LocalFileInclusion;
 use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -341,6 +343,25 @@ class SearchHackingEngine extends Command
             $this->saveTxt($resultSite, $nameFileIsAdmin);
             $this->printResult($resultSite['site'], $output, 'Result list of admin page:');
             $this->printResumeResult($output, 'Patch File of admin page:', $nameFileIsAdmin);
+        }
+
+        if (in_array('xss', $this->check)) {
+
+            $nameFileXss = $nameFile.'_xss';
+            $site = new CrossSiteScripting($commandData, $result);
+            $resultSite['site'] = $site->check();
+            $this->saveTxt($resultSite, $nameFileXss);
+            $this->printResult($resultSite['site'], $output, 'Result list of admin page:');
+            $this->printResumeResult($output, 'Patch File of admin page:', $nameFileXss);
+        }
+
+        if (in_array('lfi', $this->check)) {
+            $nameFileLfi = $nameFile.'_lfi';
+            $site = new LocalFileInclusion($commandData, $result);
+            $resultSite['site'] = $site->check();
+            $this->saveTxt($resultSite, $nameFileLfi);
+            $this->printResult($resultSite['site'], $output, 'Result list of admin page:');
+            $this->printResumeResult($output, 'Patch File of Local File Inclusion:', $nameFileLfi);
         }
     }
 }
