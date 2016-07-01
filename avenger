@@ -9,7 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 ini_set('memory_limit','512M');
 
 // Initialize Application
-$application = new Application('PHP Avenger by ASZone - Search Hacking','1.0.0');
+$application = new Application('PHP Avenger by ASZone - Search Hacking','0.1 beta');
 
 $application->add(new SearchHackingEngine());
 
