@@ -16,6 +16,7 @@ use Aszone\Vulnerabilities\SqlInjection;
 use Aszone\Vulnerabilities\LocalFileDownload;
 use Aszone\Avenger\Mailer;
 use Aszone\Hacking\DefaultSite;
+use Aszone\HackingAnalyzeStaticFiles\DownloadByLocalFileDownload;
 
 class SearchHackingEngine extends Command
 {
@@ -99,6 +100,11 @@ class SearchHackingEngine extends Command
                         null,
                         InputOption::VALUE_NONE,
                         'Set the mail for send result. Example: --email'),
+                    new InputOption(
+                        'exploit',
+                        null,
+                        InputOption::VALUE_NONE,
+                        'Set the exploit for exploit vulnerabilities, function only check lfd: --exploit'),
 
                     /*new InputOption(
                     	'hashs',
@@ -211,6 +217,7 @@ class SearchHackingEngine extends Command
         $this->torl = $input->getOption('torl');
         $this->check = $this->sanitazeValuesOfEnginers($input->getOption('check'));
         $this->pl = $input->getOption('pl');
+        $this->exploit = $input->getOption('exploit');
     }
 
     private function runHelp($output)
@@ -333,6 +340,20 @@ class SearchHackingEngine extends Command
             $this->saveTxt($resultLFD, $nameFileLfd);
             $this->printResult($resultLFD, $output, 'Result list of Lfd Vulnerables:');
             $this->printResumeResult($output, 'Patch File of Lfd Vulnerables:', $nameFileLfd);
+
+            if($this->exploit){
+                $output->writeln('<info>********Extract Files of Targets********</info>');
+                $output->writeln('*-------------------------------------------------');
+                $output->writeln('');
+                $downloadFiles=new DownloadByLocalFileDownload($commandData);
+                foreach($resultLFD['lfd'] as $url){
+                    $arrDwonloadFiles=$downloadFiles->getAllFiles($url);
+                }
+                $output->writeln('<info>Total of files etracted '.count($arrDwonloadFiles).'</info>');
+                $output->writeln('find results in folder /results/lfd/');
+                $output->writeln('');
+
+            }
         }
 
         if (in_array('isAdmin', $this->check)) {
@@ -363,5 +384,6 @@ class SearchHackingEngine extends Command
             $this->printResult($resultSite, $output, 'Result list of Local File Inclusion:');
             $this->printResumeResult($output, 'Patch File of Local File Inclusion:', $nameFileLfi);
         }
+
     }
 }
