@@ -118,6 +118,8 @@ class SearchHackingEngine extends Command
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
+
         $this->validParamns($input, $output);
 
         $filterProxy = array();
@@ -323,46 +325,34 @@ class SearchHackingEngine extends Command
     protected function checkVunerabilities($nameFile, $result, $commandData, OutputInterface $output)
     {
         if (in_array('sqli', $this->check)) {
-            $resultSqli = array();
+            $resultFinal = array();
             $nameFileSqli = $nameFile.'_sqli';
             $sqli = new SqlInjection($commandData, $result);
-            $resultSqli['sqli'] = $sqli->check();
-            $this->saveTxt($resultSqli, $nameFileSqli);
-            $this->printResult($resultSqli, $output, 'Result list of Sqli Vulnerables:');
+            $resultFinal['sqli'] = $sqli->check();
+            $this->saveTxt($resultFinal, $nameFileSqli);
+            $this->printResult($resultFinal, $output, 'Result list of Sqli Vulnerables:');
             $this->printResumeResult($output, 'Patch File of Sqli Vulnerables:', $nameFileSqli);
         }
 
         if (in_array('lfd', $this->check)) {
-            $resultLFD = array();
+            $resultFinal = array();
             $nameFileLfd = $nameFile.'_lfd';
             $lfd = new LocalFileDownload($commandData, $result);
-            $resultLFD['lfd'] = $lfd->check();
-            $this->saveTxt($resultLFD, $nameFileLfd);
-            $this->printResult($resultLFD, $output, 'Result list of Lfd Vulnerables:');
+            $resultFinal['lfd'] = $lfd->check();
+            $this->saveTxt($resultFinal, $nameFileLfd);
+            $this->printResult($resultFinal, $output, 'Result list of Lfd Vulnerables:');
             $this->printResumeResult($output, 'Patch File of Lfd Vulnerables:', $nameFileLfd);
 
-            if($this->exploit){
-                $output->writeln('<info>********Extract Files of Targets********</info>');
-                $output->writeln('*-------------------------------------------------');
-                $output->writeln('');
-                $downloadFiles=new DownloadByLocalFileDownload($commandData);
-                foreach($resultLFD['lfd'] as $url){
-                    $arrDwonloadFiles=$downloadFiles->getAllFiles($url);
-                }
-                $output->writeln('<info>Total of files etracted '.count($arrDwonloadFiles).'</info>');
-                $output->writeln('find results in folder /results/lfd/');
-                $output->writeln('');
 
-            }
         }
 
         if (in_array('isAdmin', $this->check)) {
-            $resultIsAdmin = array();
+            $resultFinal = array();
             $nameFileIsAdmin = $nameFile.'_isAdmin';
             $site = new DefaultSite($commandData, $result);
-            $resultSite['site'] = $site->check();
-            $this->saveTxt($resultSite, $nameFileIsAdmin);
-            $this->printResult($resultSite, $output, 'Result list of admin page:');
+            $resultFinal['site'] = $site->check();
+            $this->saveTxt($resultFinal, $nameFileIsAdmin);
+            $this->printResult($resultFinal, $output, 'Result list of admin page:');
             $this->printResumeResult($output, 'Patch File of admin page:', $nameFileIsAdmin);
         }
 
@@ -370,20 +360,42 @@ class SearchHackingEngine extends Command
 
             $nameFileXss = $nameFile.'_xss';
             $site = new CrossSiteScripting($commandData, $result);
-            $resultSite['xss'] = $site->check();
-            $this->saveTxt($resultSite, $nameFileXss);
-            $this->printResult($resultSite, $output, 'Result list of Cross site Scripting:');
+            $resultFinal['xss'] = $site->check();
+            $this->saveTxt($resultFinal, $nameFileXss);
+            $this->printResult($resultFinal, $output, 'Result list of Cross site Scripting:');
             $this->printResumeResult($output, 'Patch File of Cross site Scripting:', $nameFileXss);
         }
 
         if (in_array('lfi', $this->check)) {
             $nameFileLfi = $nameFile.'_lfi';
             $site = new LocalFileInclusion($commandData, $result);
-            $resultSite['lfi'] = $site->check();
-            $this->saveTxt($resultSite, $nameFileLfi);
-            $this->printResult($resultSite, $output, 'Result list of Local File Inclusion:');
+            $resultFinal['lfi'] = $site->check();
+            $this->saveTxt($resultFinal, $nameFileLfi);
+            $this->printResult($resultFinal, $output, 'Result list of Local File Inclusion:');
             $this->printResumeResult($output, 'Patch File of Local File Inclusion:', $nameFileLfi);
         }
 
+        if($this->exploit){
+            $this->runExploit($resultFinal,$commandData,$output);
+        }
+    }
+
+    protected function runExploit($result, $commandData, OutputInterface $output){
+        if (in_array('lfd', $this->check)) {
+            $output->writeln('<info>********Executing command exploit*******</info>');
+            $output->writeln('<info>********Extract Files of Targets********</info>');
+            $output->writeln('*-------------------------------------------------');
+            $output->writeln('');
+            $downloadFiles=new DownloadByLocalFileDownload($commandData);
+            foreach($result as $url){
+                $output->writeln('*-------------------------------------------------');
+                $output->writeln('<info>Target => '.$url.'</info>');
+                $arrDwonloadFiles=$downloadFiles->getAllFiles($url);
+                $output->writeln('<info>Total of files etracted '.count($arrDwonloadFiles).' by '.$url.'</info>');
+            }
+            $output->writeln('*-------------------------------------------------');
+            $output->writeln('find results in folder /results/lfd/');
+            $output->writeln('');
+        }
     }
 }
