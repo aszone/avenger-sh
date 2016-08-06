@@ -34,8 +34,8 @@
         "swiftmailer/swiftmailer": "^5.4",
         "aszone/simple_html_dom": "~1.5",
         "aszone/hacking": "~0.1",
-        "aszone/search-hacking": "~0.1.1",
-        "aszone/vulnerabilities": "~0.1",
+        "aszone/search-hacking": "~0.1",
+        "aszone/vulnerabilities": "~0.1.1",
         "lenonleite/hacking-analyze-static-files": "~0.1"
 
 
