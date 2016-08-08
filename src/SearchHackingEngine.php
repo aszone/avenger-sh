@@ -381,21 +381,16 @@ class SearchHackingEngine extends Command
     }
 
     protected function runExploit($result, $commandData, OutputInterface $output){
-<<<<<<< HEAD
-        var_dump($result);
-=======
->>>>>>> a644e4f75415640e9913140e26ebc0e9650d08ab
+
         if (in_array('lfd', $this->check)) {
             $output->writeln('<info>********Executing command exploit*******</info>');
             $output->writeln('<info>********Extract Files of Targets********</info>');
             $output->writeln('*-------------------------------------------------');
             $output->writeln('');
             $downloadFiles=new DownloadByLocalFileDownload($commandData);
-<<<<<<< HEAD
+
             foreach($result['lfd'] as $url){
-=======
-            foreach($result as $url){
->>>>>>> a644e4f75415640e9913140e26ebc0e9650d08ab
+
                 $output->writeln('*-------------------------------------------------');
                 $output->writeln('<info>Target => '.$url.'</info>');
                 $arrDwonloadFiles=$downloadFiles->getAllFiles($url);
