@@ -35,7 +35,7 @@
         "aszone/hacking": "~0.1",
         "aszone/search-hacking": "~0.1",
         "aszone/vulnerabilities": "~0.1.1",
-        "lenonleite/hacking-analyze-static-files": "~0.1"
+        "lenonleite/hacking-analyze-static-files": "~0.1.1"
 
 
     },
