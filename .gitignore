@@ -1,0 +1,7 @@
+results/*
+vendor/*
+cookie.txt
+composer.lock
+.idea/*
+.idea
+

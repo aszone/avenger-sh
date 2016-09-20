@@ -1,0 +1,18 @@
+<?php
+
+use Symfony\Component\Console\Application;
+use Aszone\Avenger\SearchHackingEngine;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Apply custom config if available
+ini_set('memory_limit','512M');
+
+// Initialize Application
+$application = new Application('PHP Avenger by ASZone - Search Hacking','0.1 beta');
+
+$application->add(new SearchHackingEngine());
+
+$application->run();
+ 
+?>
