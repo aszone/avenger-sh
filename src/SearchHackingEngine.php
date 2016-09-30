@@ -12,11 +12,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Helper\Table;
 use Aszone\SearchHacking\SearchHacking;
-use Aszone\Vulnerabilities\SqlInjection;
-use Aszone\Vulnerabilities\LocalFileDownload;
+use Aszone\Vulnerabilities;
 use Aszone\Avenger\Mailer;
 use Aszone\Hacking\DefaultSite;
-use Aszone\HackingAnalyzeStaticFiles\DownloadByLocalFileDownload;
+use Aszone\Exploits;
 
 class SearchHackingEngine extends Command
 {
@@ -196,8 +195,10 @@ class SearchHackingEngine extends Command
             $file = $this->saveTxt($result, $nameFile);
             $this->printResult($result, $output, 'Result list of Search:');
             $this->printResumeResult($output, 'Patch File of Search:', $file);
+            if (!empty($this->check)) {
+                $this->checkVunerabilities($nameFile, $result, $commandData, $output);
+            }
 
-            $this->checkVunerabilities($nameFile, $result, $commandData, $output);
             sleep(5);
         }
     }
@@ -332,7 +333,7 @@ class SearchHackingEngine extends Command
         if (in_array('sqli', $this->check)) {
             $resultFinal = array();
             $nameFileSqli = $nameFile.'_sqli';
-            $sqli = new SqlInjection($commandData, $result);
+            $sqli = new Vulnerabilities\SqlInjection($commandData, $result);
             $resultFinal['sqli'] = $sqli->check();
             $this->saveTxt($resultFinal, $nameFileSqli);
             $this->printResult($resultFinal, $output, 'Result list of Sqli Vulnerables:');
@@ -342,7 +343,7 @@ class SearchHackingEngine extends Command
         if (in_array('lfd', $this->check)) {
             $resultFinal = array();
             $nameFileLfd = $nameFile.'_lfd';
-            $lfd = new LocalFileDownload($commandData, $result);
+            $lfd = new Vulnerabilities\LocalFileDownload($commandData, $result);
             $resultFinal['lfd'] = $lfd->check();
             $this->saveTxt($resultFinal, $nameFileLfd);
             $this->printResult($resultFinal, $output, 'Result list of Lfd Vulnerables:');
@@ -354,7 +355,7 @@ class SearchHackingEngine extends Command
         if (in_array('isAdmin', $this->check)) {
             $resultFinal = array();
             $nameFileIsAdmin = $nameFile.'_isAdmin';
-            $site = new DefaultSite($commandData, $result);
+            $site = new Vulnerabilities\DefaultSite($commandData, $result);
             $resultFinal['site'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileIsAdmin);
             $this->printResult($resultFinal, $output, 'Result list of admin page:');
@@ -364,7 +365,7 @@ class SearchHackingEngine extends Command
         if (in_array('xss', $this->check)) {
 
             $nameFileXss = $nameFile.'_xss';
-            $site = new CrossSiteScripting($commandData, $result);
+            $site = new Vulnerabilities\CrossSiteScripting($commandData, $result);
             $resultFinal['xss'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileXss);
             $this->printResult($resultFinal, $output, 'Result list of Cross site Scripting:');
@@ -373,7 +374,7 @@ class SearchHackingEngine extends Command
 
         if (in_array('lfi', $this->check)) {
             $nameFileLfi = $nameFile.'_lfi';
-            $site = new LocalFileInclusion($commandData, $result);
+            $site = new Vulnerabilities\LocalFileInclusion($commandData, $result);
             $resultFinal['lfi'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileLfi);
             $this->printResult($resultFinal, $output, 'Result list of Local File Inclusion:');
@@ -381,24 +382,24 @@ class SearchHackingEngine extends Command
         }
 
         if($this->exploit){
-            $this->runExploit($resultFinal,$commandData,$output);
+            $this->runExploitLFD($resultFinal,$commandData,$output);
         }
     }
 
-    protected function runExploit($result, $commandData, OutputInterface $output){
+    protected function runExploitLFD($result, $commandData, OutputInterface $output){
 
         if (in_array('lfd', $this->check)) {
             $output->writeln('<info>********Executing command exploit*******</info>');
             $output->writeln('<info>********Extract Files of Targets********</info>');
             $output->writeln('*-------------------------------------------------');
             $output->writeln('');
-            $downloadFiles=new DownloadByLocalFileDownload($commandData);
+            $downloadFiles=new Exploits\LocalFileDownload($commandData);
 
             foreach($result['lfd'] as $url){
 
                 $output->writeln('*-------------------------------------------------');
                 $output->writeln('<info>Target => '.$url.'</info>');
-                $arrDwonloadFiles=$downloadFiles->getAllFiles($url);
+                $arrDwonloadFiles=$downloadFiles->getFiles($url);
                 $output->writeln('<info>Total of files etracted '.count($arrDwonloadFiles).' by '.$url.'</info>');
             }
             $output->writeln('*-------------------------------------------------');
