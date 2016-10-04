@@ -287,6 +287,24 @@ class SearchHackingEngine extends Command
         return $file;
     }
 
+    protected function saveTxtBtwp($data, $filename)
+    {
+        $file = __DIR__.'/../results/exploits/btwp/'.$filename.'.txt';
+        $myfile = fopen($file, 'w') or die('Unable to open file!');
+        $msg = "";
+        if (is_array($data)) {
+            foreach ($data as $keyResult => $results) {
+                foreach($results as $keyResult=>$result){
+                    $msg .= $keyResult.' : '.$result.'  --  ';
+                }
+                fwrite($myfile, $msg);
+            }
+        }
+        fclose($myfile);
+
+
+    }
+
     protected function sendMail($resultFinal)
     {
         //Send Mail with parcial results
@@ -461,17 +479,23 @@ class SearchHackingEngine extends Command
         $output->writeln('*-----------------------------------------------------------------------------');
         $output->writeln('');
         $btwp=new Exploits\BruteForceWordPress($commandData);
+        $result['isAdmin']= array_unique($result['isAdmin']);
         foreach($result['isAdmin'] as $url){
             $resBtwp['isAdmin']=$btwp->execute($url);
             if($resBtwp){
-                $output->writeln('<info>********************Print Results***********************</info>');
-                $output->writeln("<info>Site: ".$resBtwp['isAdmin']['site']."</info>");
-                $output->writeln("<info>User: ".$resBtwp['isAdmin']['user']."</info>");
-                $output->writeln("<info><info>Password: ".$resBtwp['isAdmin']['password']."</info>");
-                $output->writeln('<info>********************************************************</info>');
-                if (!empty($this->email)) {
-                    $this->sendMailBtResult($resBtwp, $this->email);
-                    $this->printResumeResult($output, 'Email to send:', $this->email);
+                foreach ($resBtwp['isAdmin'] as $keyResult => $results) {
+                    $output->writeln('<info>********************Print Results***********************</info>');
+                    $output->writeln("<info>Site: " .$results['site'] . "</info>");
+                    $output->writeln("<info>User: " . $results['user'] . "</info>");
+                    $output->writeln("<info>Password: " . $results['password'] . "</info>");
+                    $output->writeln('<info>********************************************************</info>');
+                    $nameTxt=str_replace("/","_",$results['site']."_".$results['user']);
+                    $nameTxt=str_replace(":","_",$nameTxt);
+                    $this->saveTxtBtwp($resBtwp['isAdmin'], $nameTxt);
+                    if (!empty($this->email)) {
+                        $this->sendMailBtResult($resBtwp, $this->email);
+                        $this->printResumeResult($output, 'Email to send:', $this->email);
+                    }
                 }
             }
         }
