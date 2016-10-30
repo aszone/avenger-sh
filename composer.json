@@ -25,6 +25,7 @@
     },
     "require": {
         "php": ">=5.3.9",
+	"lib-curl": ">=7.43.0",
         "knplabs/console-service-provider": "^1.0",
         "swiftmailer/swiftmailer": "^5.4",
         "aszone/simple_html_dom": "~1.5",
@@ -32,8 +33,6 @@
         "aszone/search-hacking": "~0.1",
         "aszone/vulnerabilities": "~0.1.1",
         "lenonleite/exploits": "~0.1"
-
-
     },
     "minimum-stability": "dev",
     "prefer-stable": true
