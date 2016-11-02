@@ -1,0 +1,26 @@
+{
+    "directories": ["src/"],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": [
+                ".gitignore",
+                ".md",
+                "phpunit",
+                "Tester",
+                "Tests",
+                "tests",
+                "yaml"
+            ],
+            "in": "vendor"
+        },
+        {
+            "name": "*.ini",
+            "exclude": ["Tests"],
+            "in": "vendor/aszone"
+        }
+    ],
+    "output": "bin/avenger.phar",
+    "main": "avenger",
+    "stub": true
+}
