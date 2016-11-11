@@ -7,7 +7,8 @@
 * PHP Avenger sh ( Search Enginer )
 
 ### Future Implementation
-r
+
+
 * PHP Avenger bt ( Brute - Force )
 * PHP Avenger sca ( State Code Analayse )
 * PHP Avenger pwp ( Plugin WordPress )
