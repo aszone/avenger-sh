@@ -18,7 +18,7 @@ r
 
 > Php Avenger sh is a open source tool with ideia **baseaded in fork inurlbr by Cleiton Pinheiro**. Basicaly **PHP Avenger sh** is a tool automates the process of detecting of possibles vunerabilities in using mass scan and check if true or false. Php Avenget utility search enginers with google, bing and others using dorks ( avanced searching ).
 
-## Instalation 
+## Installation 
 
 The recommended way to install PHP Avenger is through
 [Composer](http://getcomposer.org).
