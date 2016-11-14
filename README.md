@@ -1,10 +1,10 @@
 # PHP Avenger
 
-> PHP Avenger is a future collection open source of tools writting in PHP with focus in security and hacking.
+> PHP Avenger is a modern collection of open source tools written in PHP with focus in security and hacking.
 
 ### Beta
 
-* PHP Avenger sh ( Search Enginer )
+* PHP Avenger sh ( Search Engine )
 
 ### Future Implementation
 
@@ -17,7 +17,7 @@
 ***
 #PHP Avenger SH
 
-> Php Avenger sh is a open source tool with ideia **baseaded in fork inurlbr by Cleiton Pinheiro**. Basicaly **PHP Avenger sh** is a tool automates the process of detecting of possibles vunerabilities in using mass scan and check if true or false. Php Avenget utility search enginers with google, bing and others using dorks ( avanced searching ).
+> Php Avenger sh is a open source tool with an idea **based in a fork inurlbr by Cleiton Pinheiro**. Basically **PHP Avenger sh** is a tool that automates the process of detecting possible vulnerabilities using mass scan and checking if the vulnerability is true or false. Php Avenger uses search engines like google, bing and others through dorks ( advanced search ).
 
 ## Installation 
 
@@ -37,7 +37,7 @@ cd avenger-sh
 ```
 ## Basic Usage
 
-> Use command for init process, result will print in monitor and save in txt on folder results.
+> Use the commands bellow to init the process, results will be printed in the monitor and saved in a `.txt` file on folder `results`.
 
 ### Get trash search
 
@@ -77,7 +77,7 @@ php avenger sh
 
 ## Details
 
-#### Searchs Enginers
+#### Search Engines
 * Google
 * GoogleApi
 * Bing
@@ -85,12 +85,12 @@ php avenger sh
 * Yahoo
 * Yandex
 
-#### Vulnerabilities Checked
+#### Covered Vulnerabilities
 * Sql Injection
 * Local File Download
 * Admin Page
 
-#### Future Vulnerabilities Checked
+#### Covered Vulnerabilities in next versions
 * RFI
 * Xss
 * Sensitive Files
@@ -98,14 +98,14 @@ php avenger sh
     * Config Files
     * Open Folders
 
-#### Features development
+#### Features under development
 * Power Search
-* Send Mail for results
-* Name of TXT
+* Send E-mail with results
+* Naming the `.txt` result file
 * Proxys
     * TOR
     * Site of Proxys
-    * **Virgem Proxys**
+    * **Virgin Proxys**
     
 ## Help and docs
 * [Documentation](http://phpavenger.aszone.com.br).
