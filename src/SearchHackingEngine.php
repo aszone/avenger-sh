@@ -201,11 +201,10 @@ class SearchHackingEngine extends Command
             $this->printResumeResult($output, 'Patch File of Search:', $file);
             if (!empty($this->check)) {
                 $resultsOfCheck = $this->checkVunerabilities($nameFile, $result, $commandData, $output);
+                if (!empty($this->exploit) && $resultsOfCheck) {
+                    $this->checkExploits($resultsOfCheck, $commandData, $output);
+                }
             }
-            if (!empty($this->exploit)) {
-                $this->checkExploits($resultsOfCheck, $commandData, $output);
-            }
-
             sleep(5);
         }
     }
