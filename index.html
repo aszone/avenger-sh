@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Avenger by aszone</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Avenger</h1>
+        <h2>Project for finding vunerabilities in mass.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/aszone/avenger-sh/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/aszone/avenger-sh/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/aszone/avenger-sh" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="php-avenger" class="anchor" href="#php-avenger" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PHP Avenger</h1>
+
+<blockquote>
+<p>PHP Avenger is a modern collection of open source tools written in PHP with focus in security and hacking.</p>
+</blockquote>
+
+<h3>
+<a id="beta" class="anchor" href="#beta" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Beta</h3>
+
+<ul>
+<li>PHP Avenger sh ( Search Engine )</li>
+</ul>
+
+<h3>
+<a id="future-implementation" class="anchor" href="#future-implementation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Future Implementation</h3>
+
+<ul>
+<li>PHP Avenger bt ( Brute - Force )</li>
+<li>PHP Avenger sca ( State Code Analayse )</li>
+<li>PHP Avenger pwp ( Plugin WordPress )</li>
+<li>PHP Avenger cj ( Component Joomla )</li>
+</ul>
+
+<hr>
+
+<h1>
+<a id="php-avenger-sh" class="anchor" href="#php-avenger-sh" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PHP Avenger SH</h1>
+
+<blockquote>
+<p>Php Avenger sh is a open source tool with an idea <strong>based in a fork inurlbr by Cleiton Pinheiro</strong>. Basically <strong>PHP Avenger sh</strong> is a tool that automates the process of detecting possible vulnerabilities using mass scan and checking if the vulnerability is true or false. Php Avenger uses search engines like google, bing and others through dorks ( advanced search ).</p>
+</blockquote>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>The recommended way to install PHP Avenger is through
+<a href="http://getcomposer.org">Composer</a>.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># Install Composer</span>
+curl -sS https://getcomposer.org/installer <span class="pl-k">|</span> php</pre></div>
+
+<p>Next, run the Composer command to install the latest beta version of Php Avenger SH:</p>
+
+<div class="highlight highlight-source-shell"><pre>php composer.phar create-project aszone/avenger-sh
+<span class="pl-c1">cd</span> avenger-sh</pre></div>
+
+<h2>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Usage</h2>
+
+<blockquote>
+<p>Use the commands bellow to init the process, results will be printed in the monitor and saved in a <code>.txt</code> file on folder <code>results</code>.</p>
+</blockquote>
+
+<h3>
+<a id="get-trash-search" class="anchor" href="#get-trash-search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get trash search</h3>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh --dork=<span class="pl-s"><span class="pl-pds">"</span>site:com.ar ext:sql password<span class="pl-pds">"</span></span></pre></div>
+
+<h4>
+<a id="result-of-trash-search" class="anchor" href="#result-of-trash-search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Result of trash search</h4>
+
+<p><img src="http://lenonleite.com.br/wp-content/uploads/2016/06/imagem1.png" alt="alt tag"></p>
+
+<h3>
+<a id="check-sql-injection" class="anchor" href="#check-sql-injection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Check Sql Injection</h3>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh --dork=<span class="pl-s"><span class="pl-pds">"</span>site:com.ar inurl:php?id=<span class="pl-pds">"</span></span> --check=<span class="pl-s"><span class="pl-pds">"</span>sqli<span class="pl-pds">"</span></span></pre></div>
+
+<h4>
+<a id="result-of-sql-injection" class="anchor" href="#result-of-sql-injection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Result of Sql Injection</h4>
+
+<p><img src="http://lenonleite.com.br/wp-content/uploads/2016/06/imagem2.png" alt="alt tag">
+<img src="http://lenonleite.com.br/wp-content/uploads/2016/06/imagem3.png" alt="alt tag"></p>
+
+<h3>
+<a id="check-local-file-download" class="anchor" href="#check-local-file-download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Check Local File Download</h3>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh --dork=<span class="pl-s"><span class="pl-pds">"</span>site:com.ar inurl:download.php?file=<span class="pl-pds">"</span></span> --check=<span class="pl-s"><span class="pl-pds">"</span>lfd<span class="pl-pds">"</span></span></pre></div>
+
+<h4>
+<a id="result-of-local-file-download" class="anchor" href="#result-of-local-file-download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Result of Local File Download</h4>
+
+<p><img src="http://lenonleite.com.br/wp-content/uploads/2016/06/imagem7.png" alt="alt tag"></p>
+
+<h3>
+<a id="check-and-exploited-local-file-download" class="anchor" href="#check-and-exploited-local-file-download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Check and Exploited Local File Download</h3>
+
+<blockquote>
+<p>This next command you will check vulnerabilities and extract files of server. The files will save in /results/exploits/lfd/</p>
+</blockquote>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh --dork=<span class="pl-s"><span class="pl-pds">"</span>site:com.mx inurl:download.php?file=<span class="pl-pds">"</span></span> --check=<span class="pl-s"><span class="pl-pds">"</span>lfd<span class="pl-pds">"</span></span> --exploit=<span class="pl-s"><span class="pl-pds">"</span>lfd<span class="pl-pds">"</span></span></pre></div>
+
+<h4>
+<a id="result-of-extract-files" class="anchor" href="#result-of-extract-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Result of Extract Files</h4>
+
+<p><img src="http://lenonleite.com.br/wp-content/uploads/2016/11/lfdFiles.png" alt="alt tag"></p>
+
+<h4>
+<a id="video-of-extract-files" class="anchor" href="#video-of-extract-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Video of Extract Files</h4>
+
+<p><a href="https://www.youtube.com/watch?v=IdrpQ7KQlmU"><img src="https://img.youtube.com/vi/IdrpQ7KQlmU/0.jpg" alt="Video of extract files"></a></p>
+
+<h3>
+<a id="check-is-admin-page" class="anchor" href="#check-is-admin-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Check is Admin Page</h3>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh --dork=<span class="pl-s"><span class="pl-pds">"</span>site:com.ar inurl:admin<span class="pl-pds">"</span></span> --check=<span class="pl-s"><span class="pl-pds">"</span>isAdmin<span class="pl-pds">"</span></span></pre></div>
+
+<h3>
+<a id="check-is-admin-page-and-if-admin-page-for-wordpress-get-all-users-and-start-brute-force" class="anchor" href="#check-is-admin-page-and-if-admin-page-for-wordpress-get-all-users-and-start-brute-force" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Check is Admin Page and if Admin Page for WordPress get all users and start brute force</h3>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh --dork=<span class="pl-s"><span class="pl-pds">"</span>site:com inurl:wp-content/uploads<span class="pl-pds">"</span></span> --check=<span class="pl-s"><span class="pl-pds">"</span>isAdmin<span class="pl-pds">"</span></span> --exploit=<span class="pl-s"><span class="pl-pds">"</span>btwp<span class="pl-pds">"</span></span></pre></div>
+
+<h3>
+<a id="help-for-commands" class="anchor" href="#help-for-commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Help for commands</h3>
+
+<div class="highlight highlight-source-shell"><pre>php avenger sh </pre></div>
+
+<h2>
+<a id="details" class="anchor" href="#details" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Details</h2>
+
+<h4>
+<a id="search-engines" class="anchor" href="#search-engines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search Engines</h4>
+
+<ul>
+<li>Google</li>
+<li>GoogleApi</li>
+<li>Bing</li>
+<li>DukeDukeGo</li>
+<li>Yahoo</li>
+<li>Yandex</li>
+</ul>
+
+<h4>
+<a id="covered-vulnerabilities" class="anchor" href="#covered-vulnerabilities" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Covered Vulnerabilities</h4>
+
+<ul>
+<li>Sql Injection (SQLI)</li>
+<li>Local File Download (LFD)</li>
+<li>Admin Page</li>
+<li>Remote File Inclusion (RFI)</li>
+<li>Cross-Site-Scripting (XSS)</li>
+</ul>
+
+<h4>
+<a id="covered-exploits" class="anchor" href="#covered-exploits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Covered Exploits</h4>
+
+<ul>
+<li>Local File Download (LFD)</li>
+<li>Brute Force for WordPress</li>
+</ul>
+
+<h4>
+<a id="covered-vulnerabilities-in-next-versions" class="anchor" href="#covered-vulnerabilities-in-next-versions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Covered Vulnerabilities in next versions</h4>
+
+<ul>
+<li>Sensitive Files
+
+<ul>
+<li>Dump Files</li>
+<li>Config Files</li>
+<li>Open Folders</li>
+</ul>
+</li>
+</ul>
+
+<h4>
+<a id="features-under-development" class="anchor" href="#features-under-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features under development</h4>
+
+<ul>
+<li>Power Search</li>
+<li>Send E-mail with results</li>
+<li>Naming the <code>.txt</code> result file</li>
+<li>Proxys
+
+<ul>
+<li>TOR</li>
+<li>Site of Proxys</li>
+<li><strong>Virgin Proxys</strong></li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="help-and-docs" class="anchor" href="#help-and-docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Help and docs</h2>
+
+<ul>
+<li>
+<a href="http://phpavenger.aszone.com.br">Documentation</a>.</li>
+<li>
+<a href="http://phpavenger.aszone.com.br/examples">Examples</a>.</li>
+<li>
+<a href="https://www.youtube.com/user/MrLenonleite">Videos</a>.</li>
+<li>
+<a href="http://phpavenger.aszone.com.br">Steakoverflow</a>.</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
