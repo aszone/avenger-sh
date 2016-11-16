@@ -130,6 +130,6 @@ php avenger sh
 ## Help and docs
 * [Documentation](http://phpavenger.aszone.com.br).
 * [Examples](http://phpavenger.aszone.com.br/examples).
-* [Videos](http://youtube.com/lenonleite).
+* [Videos](https://www.youtube.com/user/MrLenonleite).
 * [Steakoverflow](http://phpavenger.aszone.com.br).
 
