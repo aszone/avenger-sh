@@ -10,7 +10,7 @@
 
 
 * PHP Avenger bt ( Brute - Force )
-* PHP Avenger sca ( State Code Analayse )
+* PHP Avenger sca ( State Code Analyse )
 * PHP Avenger pwp ( Plugin WordPress )
 * PHP Avenger cj ( Component Joomla )
 
@@ -19,7 +19,7 @@
 
 > Php Avenger sh is a open source tool with an idea **based in a fork inurlbr by Cleiton Pinheiro**. Basically **PHP Avenger sh** is a tool that automates the process of detecting possible vulnerabilities using mass scan and checking if the vulnerability is true or false. Php Avenger uses search engines like google, bing and others through dorks ( advanced search ).
 
-## Installation 
+## Installation
 
 The recommended way to install PHP Avenger is through
 [Composer](http://getcomposer.org).
@@ -67,13 +67,13 @@ php avenger sh --dork="site:com.ar inurl:download.php?file=" --check="lfd"
 ### Check and Exploited Local File Download
 
 > This next command you will check vulnerabilities and extract files of server. The files will save in /results/exploits/lfd/
- 
+
 ```bash
 php avenger sh --dork="site:com.mx inurl:download.php?file=" --check="lfd" --exploit="lfd"
 ```
-#### Result of Extract Files 
+#### Result of Extract Files
 ![alt tag](http://lenonleite.com.br/wp-content/uploads/2016/11/lfdFiles.png)
-#### Video of Extract Files 
+#### Video of Extract Files
 [![Video of extract files](https://img.youtube.com/vi/IdrpQ7KQlmU/0.jpg)](https://www.youtube.com/watch?v=IdrpQ7KQlmU)
 
 ### Check is Admin Page
@@ -81,14 +81,14 @@ php avenger sh --dork="site:com.mx inurl:download.php?file=" --check="lfd" --exp
 php avenger sh --dork="site:com.ar inurl:admin" --check="isAdmin"
 ```
 
-### Check is Admin Page and if Admin Page for WordPress get all users and start brute force 
+### Check is Admin Page and if Admin Page for WordPress get all users and start brute force
 ```bash
 php avenger sh --dork="site:com inurl:wp-content/uploads" --check="isAdmin" --exploit="btwp"
 ```
 
 ### Help for commands
 ```bash
-php avenger sh 
+php avenger sh
 ```
 
 ## Details
@@ -97,7 +97,7 @@ php avenger sh
 * Google
 * GoogleApi
 * Bing
-* DukeDukeGo
+* DuckDuckGo
 * Yahoo
 * Yandex
 
@@ -125,8 +125,8 @@ php avenger sh
 * Proxys
     * TOR
     * Site of Proxys
-    * **Virgin Proxys**
-    
+    * **Virgin Proxies**
+
 ## Help and docs
 * [Documentation](http://phpavenger.aszone.com.br).
 * [Examples](http://phpavenger.aszone.com.br/examples).
