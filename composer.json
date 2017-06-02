@@ -17,17 +17,17 @@
         }
 
     ],
-    
+
     "autoload": {
-        "psr-4": { 
+        "psr-4": {
             "Aszone\\Avenger\\": "src/"
         }
     },
     "require": {
         "php": ">=5.3.9",
-	"ext-curl": "*",
-	"ext-mbstring": "*",
-	"ext-xml": "*",
+	    "ext-curl": "*",
+	    "ext-mbstring": "*",
+	    "ext-xml": "*",
         "knplabs/console-service-provider": "^1.0",
         "swiftmailer/swiftmailer": "^5.4",
         "aszone/simple_html_dom": "~1.5",

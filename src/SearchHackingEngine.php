@@ -35,10 +35,10 @@ class SearchHackingEngine extends Command
     protected function configure()
     {
         $this
-              ->setDescription('Search Hacking is a tool to find detailed results in various search engines')
+            ->setDescription('Search Hacking is a tool to find detailed results in various search engines')
             ->setDefinition(
                 new InputDefinition(array(
-                       new InputOption(
+                    new InputOption(
                         'backup-files',
                         'bkp',
                         InputOption::VALUE_NONE,
@@ -114,6 +114,7 @@ class SearchHackingEngine extends Command
             )
             ->setHelp('<comment>Command used to brute force</comment>');
     }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->validParamns($input, $output);
@@ -142,38 +143,38 @@ class SearchHackingEngine extends Command
             $sh = new SearchHacking($commandData);
 
             foreach ($this->eng as $enginer) {
-                $output->writeln('<comment>*'.$enginer.'</comment>');
+                $output->writeln('<comment>*' . $enginer . '</comment>');
                 switch ($enginer) {
-                case 'google':
-                    $result['google'] = $sh->runGoogle();
-                    break;
-                case 'googleapi':
-                    $result['googleapi'] = $sh->runGoogleApi();
-                    break;
-                case 'bing':
-                    $result['bing'] = $sh->runBing();
-                    break;
-                case 'yandex':
-                    $result['yandex'] = $sh->runYandex();
-                    break;
-                case 'yahoo':
-                    $result['yahoo'] = $sh->runYahoo();
-                    break;
-                case 'dukedukego':
-                    $result['dukedukego'] = $sh->runDukeDukeGo();
-                    break;
-                case 'all':
-                    $result['google'] = $sh->runGoogle();
-                    $result['googleapi'] = $sh->runGoogleApi();
-                    $result['bing'] = $sh->runBing();
-                    $result['yandex'] = $sh->runYandex();
-                    $result['yahoo'] = $sh->runYahoo();
-                    $result['dukedukego'] = $sh->runDukeDukeGo();
-                    break;
-                default:
-                    $output->writeln('<comment>Name Enginer not exist, help me and send email with site of searching not have you@example.com ... </comment>');
-                    break;
-            }
+                    case 'google':
+                        $result['google'] = $sh->runGoogle();
+                        break;
+                    case 'googleapi':
+                        $result['googleapi'] = $sh->runGoogleApi();
+                        break;
+                    case 'bing':
+                        $result['bing'] = $sh->runBing();
+                        break;
+                    case 'yandex':
+                        $result['yandex'] = $sh->runYandex();
+                        break;
+                    case 'yahoo':
+                        $result['yahoo'] = $sh->runYahoo();
+                        break;
+                    case 'dukedukego':
+                        $result['dukedukego'] = $sh->runDukeDukeGo();
+                        break;
+                    case 'all':
+                        $result['google'] = $sh->runGoogle();
+                        $result['googleapi'] = $sh->runGoogleApi();
+                        $result['bing'] = $sh->runBing();
+                        $result['yandex'] = $sh->runYandex();
+                        $result['yahoo'] = $sh->runYahoo();
+                        $result['dukedukego'] = $sh->runDukeDukeGo();
+                        break;
+                    default:
+                        $output->writeln('<comment>Name Enginer not exist, help me and send email with site of searching not have you@example.com ... </comment>');
+                        break;
+                }
 
                 if (isset($result[$enginer]->error)) {
                     $this->printError($result, $output);
@@ -257,12 +258,12 @@ class SearchHackingEngine extends Command
 
     protected function saveTxt($data, $filename)
     {
-        $file = __DIR__.'/../results/'.$filename.'.txt';
+        $file = __DIR__ . '/../results/' . $filename . '.txt';
         $myfile = fopen($file, 'w') or die('Unable to open file!');
         if (is_array($data)) {
             foreach ($data as $dataType) {
                 foreach ($dataType as $singleData) {
-                    $txt = $singleData."\n";
+                    $txt = $singleData . "\n";
                     fwrite($myfile, $txt);
                 }
             }
@@ -281,13 +282,13 @@ class SearchHackingEngine extends Command
 
     protected function saveTxtBtwp($data, $filename)
     {
-        $file = __DIR__.'/../results/exploits/btwp/'.$filename.'.txt';
+        $file = __DIR__ . '/../results/exploits/btwp/' . $filename . '.txt';
         $myfile = fopen($file, 'w') or die('Unable to open file!');
         $msg = '';
         if (is_array($data)) {
             foreach ($data as $keyResult => $results) {
                 foreach ($results as $keyResult => $result) {
-                    $msg .= $keyResult.' : '.$result.'  --  ';
+                    $msg .= $keyResult . ' : ' . $result . '  --  ';
                 }
                 fwrite($myfile, $msg);
             }
@@ -305,7 +306,7 @@ class SearchHackingEngine extends Command
             $msg = 'PHP Avenger Informer final, list of SUCCESS:<br><br>';
             foreach ($resultFinal as $keyResultEnginer => $resultEnginer) {
                 foreach ($resultEnginer as $keyResult => $result) {
-                    $msg .= $keyResultEnginer.' '.$result.' <br>';
+                    $msg .= $keyResultEnginer . ' ' . $result . ' <br>';
                 }
             }
             $mailer->sendMessage($this->email, $msg);
@@ -323,7 +324,7 @@ class SearchHackingEngine extends Command
             foreach ($resultFinal as $keyResultEnginer => $resultEnginer) {
                 foreach ($resultEnginer as $keyResult => $results) {
                     foreach ($results as $keyResult => $result) {
-                        $msg .= $keyResult.' '.$result.' <br>';
+                        $msg .= $keyResult . ' ' . $result . ' <br>';
                     }
                     echo $msg;
                     $mailer->sendMessage($this->email, $msg);
@@ -334,13 +335,13 @@ class SearchHackingEngine extends Command
 
     protected function createNameFile()
     {
-        return $this->getName().'_'.date('m-d-Y_hia');
+        return $this->getName() . '_' . date('m-d-Y_hia');
     }
 
     protected function printResult($resultFinal, OutputInterface $output, $title)
     {
         $output->writeln('');
-        $output->writeln('<info>*******'.$title.'********</info>');
+        $output->writeln('<info>*******' . $title . '********</info>');
         $table = new Table($output);
         $table->setHeaders(array('Enginer', 'List of result'));
         $arrayToTable = array();
@@ -358,14 +359,14 @@ class SearchHackingEngine extends Command
     private function printError($result, OutputInterface $output)
     {
         $output->writeln('');
-        $output->writeln('<error>'.$result['google']->error['result'].' / Command '.$result['google']->error['type'].'</error>');
+        $output->writeln('<error>' . $result['google']->error['result'] . ' / Command ' . $result['google']->error['type'] . '</error>');
     }
 
     protected function printResumeResult($output, $title, $info)
     {
-        $output->writeln('<info>********'.$title.'********</info>');
+        $output->writeln('<info>********' . $title . '********</info>');
         $output->writeln('*-------------------------------------------------');
-        $output->writeln('<info>'.$info.'</info>');
+        $output->writeln('<info>' . $info . '</info>');
         $output->writeln('*-------------------------------------------------');
         $output->writeln('');
     }
@@ -374,7 +375,7 @@ class SearchHackingEngine extends Command
     {
         if (in_array('sqli', $this->check)) {
             $resultFinal = array();
-            $nameFileSqli = $nameFile.'_sqli';
+            $nameFileSqli = $nameFile . '_sqli';
             $sqli = new Vulnerabilities\SqlInjection($commandData, $result);
             $resultFinal['sqli'] = $sqli->check();
             $this->saveTxt($resultFinal, $nameFileSqli);
@@ -384,7 +385,7 @@ class SearchHackingEngine extends Command
 
         if (in_array('lfd', $this->check)) {
             $resultFinal = array();
-            $nameFileLfd = $nameFile.'_lfd';
+            $nameFileLfd = $nameFile . '_lfd';
             $lfd = new Vulnerabilities\LocalFileDownload($commandData, $result);
             $resultFinal['lfd'] = $lfd->check();
             $this->saveTxt($resultFinal, $nameFileLfd);
@@ -394,7 +395,7 @@ class SearchHackingEngine extends Command
 
         if (in_array('isAdmin', $this->check)) {
             $resultFinal = array();
-            $nameFileIsAdmin = $nameFile.'_isAdmin';
+            $nameFileIsAdmin = $nameFile . '_isAdmin';
             $site = new DefaultSite($commandData, $result);
             $resultFinal['isAdmin'] = 'http://www.riojurua.com.br/wp-login.php';
             $resultFinal['isAdmin'] = $site->check();
@@ -405,7 +406,7 @@ class SearchHackingEngine extends Command
         }
 
         if (in_array('xss', $this->check)) {
-            $nameFileXss = $nameFile.'_xss';
+            $nameFileXss = $nameFile . '_xss';
             $site = new Vulnerabilities\CrossSiteScripting($commandData, $result);
             $resultFinal['xss'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileXss);
@@ -414,7 +415,7 @@ class SearchHackingEngine extends Command
         }
 
         if (in_array('lfi', $this->check)) {
-            $nameFileLfi = $nameFile.'_lfi';
+            $nameFileLfi = $nameFile . '_lfi';
             $site = new Vulnerabilities\LocalFileInclusion($commandData, $result);
             $resultFinal['lfi'] = $site->check();
             $this->saveTxt($resultFinal, $nameFileLfi);
@@ -446,9 +447,9 @@ class SearchHackingEngine extends Command
 
             foreach ($result['lfd'] as $url) {
                 $output->writeln('*-------------------------------------------------');
-                $output->writeln('<info>Target => '.$url.'</info>');
+                $output->writeln('<info>Target => ' . $url . '</info>');
                 $arrDwonloadFiles = $downloadFiles->getFiles($url);
-                $output->writeln('<info>Total of files etracted '.count($arrDwonloadFiles).' by '.$url.'</info>');
+                $output->writeln('<info>Total of files etracted ' . count($arrDwonloadFiles) . ' by ' . $url . '</info>');
             }
             $output->writeln('*-------------------------------------------------');
             $output->writeln('find results in folder /results/lfd/');
@@ -469,11 +470,11 @@ class SearchHackingEngine extends Command
             if ($resBtwp) {
                 foreach ($resBtwp['isAdmin'] as $keyResult => $results) {
                     $output->writeln('<info>********************Print Results***********************</info>');
-                    $output->writeln('<info>Site: '.$results['site'].'</info>');
-                    $output->writeln('<info>User: '.$results['user'].'</info>');
-                    $output->writeln('<info>Password: '.$results['password'].'</info>');
+                    $output->writeln('<info>Site: ' . $results['site'] . '</info>');
+                    $output->writeln('<info>User: ' . $results['user'] . '</info>');
+                    $output->writeln('<info>Password: ' . $results['password'] . '</info>');
                     $output->writeln('<info>********************************************************</info>');
-                    $nameTxt = str_replace('/', '_', $results['site'].'_'.$results['user']);
+                    $nameTxt = str_replace('/', '_', $results['site'] . '_' . $results['user']);
                     $nameTxt = str_replace(':', '_', $nameTxt);
                     $this->saveTxtBtwp($resBtwp['isAdmin'], $nameTxt);
                     if (!empty($this->email)) {
